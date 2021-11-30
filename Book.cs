@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Library
 {
-    class Book
+    public class Book
     {
         private string title;
         public string Title { get; set; }
@@ -15,7 +15,7 @@ namespace Library
         private Genre category;
         public Genre Category { get; set; }
 
-        public Book(string title, string author, bool isCheckedOut, Genre category)
+        public Book(string title, string author, Genre category)
         {
             Title = title;
             Author = author;

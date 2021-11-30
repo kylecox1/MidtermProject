@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Library
 {
-    enum Genre
+    public enum Genre
     {
         Fantasy = 1,
         Horror,
@@ -14,5 +14,6 @@ namespace Library
         Romance,
         SciFi,
         NonFiction,
+        ChildrensBooks,
     }
 }
