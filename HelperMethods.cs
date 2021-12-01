@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Library
 {
-    class HelperMethods
+    public class HelperMethods
     {
-
+        //for making things go smoothly
     }
 }
