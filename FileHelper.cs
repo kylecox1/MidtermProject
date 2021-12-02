@@ -12,8 +12,8 @@ namespace Library
         //public static List<Book> BookList()
         //{
         //    List<Book> books = new List<Book>();
-        //    books.Add(new Book("Child Theif","Christopher Brom",Genre.Horror));
-        //    books.Add(new Book("Lightning Theif","Rick Riordan",Genre.Fantasy));
+        //    books.Add(new Book("Child Theif", "Christopher Brom", Genre.Horror));
+        //    books.Add(new Book("Lightning Theif", "Rick Riordan", Genre.Fantasy));
         //    books.Add(new Book("Chains", "Laurie Halse Anderson", Genre.HistoricalFiction));
         //    books.Add(new Book("Cinder", "Marissa Meyer", Genre.SciFi));
         //    books.Add(new Book("Sherlock Holmes", "Arthur Conan Doyle", Genre.Mystery));
@@ -24,23 +24,28 @@ namespace Library
         //    books.Add(new Book("Foundation", "Isaac Asimo", Genre.SciFi));
         //    books.Add(new Book("Hyperion", "Dan Simmons", Genre.SciFi));
         //    books.Add(new Book("Cockoo Song", "Frances Hardinge", Genre.Horror));
-        //    //replace books.add with reading each line from the file
         //    return books;
         //}
         public static List<Book> GetFileBookList()
         {
             StreamReader reader = new StreamReader(@"c:\code\books.txt");
             List<Book> books = new List<Book>();
-            string line1 = reader.ReadLine();
-            string[] bookData = line1.Split('|');
-            Book newBook = 
-
+            string line;
+            while((line = reader.ReadLine()) != null)
+            {
+                string[] bookData = line.Split('|');
+                Book newBook = new Book(bookData[0], bookData[1], Enum.Parse<Genre>(bookData[2]),
+                    Boolean.Parse(bookData[3]), DateTime.Parse(bookData[4]));
+                books.Add(newBook);
+            }
+            reader.Close();
+            return books;
         }
         public static void WriteToFile()
         {
             string fileLocation = @"c:\code\books.txt";
             StringBuilder builder = new StringBuilder();
-            foreach (var book in BookList())
+            foreach (var book in GetFileBookList())
             {
                 builder.Append(book.Title + "|");
                 builder.Append(book.Author + "|");
