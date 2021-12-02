@@ -21,8 +21,14 @@ namespace Library
             Title = title;
             Author = author;
             Category = category;
-            //BookStatus = bookStatus;
-            //DueDate = dueDate;
+        }
+        public Book(string title, string author, Genre category, bool bookStatus, DateTime dueDate)
+        {
+            Title = title;
+            Author = author;
+            Category = category;
+            BookStatus = bookStatus;
+            DueDate = dueDate;
         }
     }
 }

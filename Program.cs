@@ -22,7 +22,7 @@ namespace Library
             Console.WriteLine("");
             foreach (var book in books)
             {
-                Console.Write($"\"{ book.Title }\" by { book.Author }  |  "); 
+                Console.Write($"\"{ book.Title }\" by { book.Author }  |  ");
             }
             Console.WriteLine("");
             Console.WriteLine("");
