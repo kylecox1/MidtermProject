@@ -1,29 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace Library
 {
-    public class IsDue : FileHelper
+    public class IsDue
     {
-        
-        public static void CheckedInStatus()
+        public static bool CheckOutBook(Book book)
         {
-            //check the status of book and due date
+            if (book.BookStatus == true)
+            {
+                return false;
+            }
+            else
+            {
+                book.BookStatus = true;
+                return true;
+            }
         }
-        public static void MakeCheckedIn()
-        {
 
-        }
-        public static void MakeCheckedOut()
-        {
 
-        }
-        public static void DueDate()
+        public static DateTime DueDate()
         {
-            //if checked out by user should tell person that the book is checked out
-
-            //say not checked out if theres no due date
+            DateTime checkOutDay = DateTime.Now;
+            TimeSpan twoWeeks = new TimeSpan(14, 0, 0, 0);
+            DateTime dueDate = checkOutDay + twoWeeks;
+            return dueDate;
         }
     }
 }
