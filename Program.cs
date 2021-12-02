@@ -15,7 +15,7 @@ namespace Library
         public static void UserInterface()
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            List<Book> books = FileHelper.BookList();
+            List<Book> books = FileHelper.GetFileBookList();
             Console.WriteLine("Welcome to the library!");
             Console.WriteLine("");
             Console.WriteLine("These are our current selections:");
