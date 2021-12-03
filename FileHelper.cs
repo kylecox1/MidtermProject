@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -21,7 +21,7 @@ namespace Library
             books.Add(new Book("Fabio", "Ya Dream Man", Genre.Romance));
             books.Add(new Book("Coding for Dummies", "NikHil Abraham", Genre.NonFiction));
             books.Add(new Book("Green Eggs and Ham", "Dr Seuss", Genre.ChildrensBooks));
-            books.Add(new Book("Foundation", "Isaac Asimo", Genre.SciFi));
+            books.Add(new Book("Foundation", "Isaac Asimov", Genre.SciFi));
             books.Add(new Book("Hyperion", "Dan Simmons", Genre.SciFi));
             books.Add(new Book("Cockoo Song", "Frances Hardinge", Genre.Horror));
             return books;
@@ -31,7 +31,7 @@ namespace Library
             StreamReader reader = new StreamReader(@"c:\code\books.txt");
             List<Book> books = new List<Book>();
             string line;
-            while((line = reader.ReadLine()) != null)
+            while ((line = reader.ReadLine()) != null)
             {
                 string[] bookData = line.Split('|');
                 Book newBook = new Book(bookData[0], bookData[1], Enum.Parse<Genre>(bookData[2]),
