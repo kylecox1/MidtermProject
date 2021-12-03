@@ -19,7 +19,18 @@ namespace Library
                 return true;
             }
         }
-
+        public static bool ReturnBook(Book book)
+        {
+            if (CheckOutBook(book) == false)
+            {
+                book.BookStatus = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static DateTime DueDate()
         {
             DateTime checkOutDay = DateTime.Now;

@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using Library;
+using System.Collections.Generic;
 
 namespace FileHelperTest.Test
 {
@@ -9,8 +10,11 @@ namespace FileHelperTest.Test
         [Fact]
         public static void GetFileBookList_CreatesListFromFileUsingLoop()
         {
-            FileHelper subject = new FileHelper();
-            //this is a change
+            List<Book> books = new List<Book>();
+
+            books = FileHelper.GetFileBookList();
+
+            Assert.True(books.Count > 0);
         }
 
     }
