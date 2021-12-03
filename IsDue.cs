@@ -20,7 +20,6 @@ namespace Library
             }
         }
 
-
         public static DateTime DueDate()
         {
             DateTime checkOutDay = DateTime.Now;
