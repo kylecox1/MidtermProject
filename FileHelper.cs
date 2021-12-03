@@ -40,9 +40,7 @@ namespace Library
             }
             reader.Close();
             return books;
-            //make unit test for
         }
-        //write method 
         public static void WriteToFile()
         {
             string fileLocation = @"c:\code\books.txt";
