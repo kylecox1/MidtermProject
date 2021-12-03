@@ -6,6 +6,6 @@ namespace Library
 {
     public class HelperMethods
     {
-        //for making things go smoothly
+        
     }
 }
