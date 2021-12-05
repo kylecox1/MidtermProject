@@ -55,8 +55,23 @@ namespace Library
                 builder.Append("\n");
             }
             File.WriteAllText(fileLocation, builder.ToString());
-            
         }
-        
+
+        public static void OverWriteFile(List<Book> books)
+        {
+            string fileLocation = @"c:\code\books.txt";
+            StringBuilder builder = new StringBuilder();
+            foreach (var book in books)
+            {
+                builder.Append(book.Title + "|");
+                builder.Append(book.Author + "|");
+                builder.Append(book.Category + "|");
+                builder.Append(book.BookStatus + "|");
+                builder.Append(book.DueDate);
+                builder.Append("\n");
+            }
+            File.WriteAllText(fileLocation, builder.ToString());
+        }
+
     }
 }
