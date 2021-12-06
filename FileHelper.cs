@@ -41,7 +41,6 @@ namespace Library
             reader.Close();
             return books;
         }
-
         public static void OverWriteFile(List<Book> books)
         {
             string fileLocation = @"c:\code\books.txt";
@@ -57,7 +56,6 @@ namespace Library
             }
             File.WriteAllText(fileLocation, builder.ToString());
         }
-
         public static List<Book> DonateABook(List<Book> books)
         {
             Console.WriteLine("Please give a title:");
@@ -89,9 +87,8 @@ namespace Library
                 builder.Append("\n");
             }
             File.WriteAllText(fileLocation, builder.ToString());
+            
         }
-
         
-
     }
 }
