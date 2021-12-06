@@ -33,7 +33,6 @@ namespace Library
                 bool validSelection = false;
                 while (validSelection == false)
                 {
-
                     string userSearchSelection = Console.ReadLine();
                     if (userSearchSelection == "1")
                     {
@@ -197,7 +196,7 @@ namespace Library
                     else if (userSearchSelection == "4")
                     {
                         validSelection = true;
-                        Console.WriteLine("Logic to accept donations.");
+                        FileHelper.DonateABook(books);
                     }
                     else if (userSearchSelection.ToLower() == "q")
                     {
