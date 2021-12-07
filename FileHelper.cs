@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-
 namespace Library
 {
     public class FileHelper
     {
-
         public static List<Book> BookList()
         {
             List<Book> books = new List<Book>();
@@ -26,6 +24,7 @@ namespace Library
             books.Add(new Book("Cockoo Song", "Frances Hardinge", Genre.Horror));
             return books;
         }
+      
         public static List<Book> GetFileBookList()
         {
             StreamReader reader = new StreamReader(@"c:\code\books.txt");
@@ -41,6 +40,7 @@ namespace Library
             reader.Close();
             return books;
         }
+      
         public static void OverWriteFile(List<Book> books)
         {
             string fileLocation = @"c:\code\books.txt";
@@ -56,6 +56,7 @@ namespace Library
             }
             File.WriteAllText(fileLocation, builder.ToString());
         }
+      
         public static List<Book> DonateABook(List<Book> books)
         {
             Console.WriteLine("Please give a title:");
@@ -97,12 +98,10 @@ namespace Library
                 }
             }
             while (notValidInput == true);
-
             books.Add(new Book(userTitle, userAuthor, Enum.Parse<Genre>(userGenre)));
-
             return books;
-
         }
+      
         public static void WriteToFile()
         {
             string fileLocation = @"c:\code\books.txt";
@@ -117,8 +116,6 @@ namespace Library
                 builder.Append("\n");
             }
             File.WriteAllText(fileLocation, builder.ToString());
-
         }
-
     }
 }
