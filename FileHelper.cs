@@ -78,19 +78,21 @@ namespace Library
             bool notValidInput = true;
             do
             {
-                notValidInput = true;
-                while (userGenre == null)
+                if (userGenre == null)
                 {
                     Console.WriteLine("Please write one of the choices above");
                     userGenre = Console.ReadLine().ToLower().Trim();
                 }
-                while (userGenre != null && userGenre != "fantasy" || userGenre != "horror" || userGenre != "mystery" ||
+                else if (userGenre != null && userGenre != "fantasy" || userGenre != "horror" || userGenre != "mystery" ||
                     userGenre != "historicalfiction" ||
                     userGenre != "realisticfiction" || userGenre != "romance" || userGenre != "scifi"
                     || userGenre != "nonfiction" || userGenre != "childrensbooks")
                 {
                     Console.WriteLine("It has to be one of the following options.");
                     userGenre = Console.ReadLine().ToLower().Trim();
+                }
+                else
+                {
                     notValidInput = false;
                 }
             }
