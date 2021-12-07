@@ -59,20 +59,48 @@ namespace Library
         public static List<Book> DonateABook(List<Book> books)
         {
             Console.WriteLine("Please give a title:");
-            string userTitle = Console.ReadLine();
-
+            string userTitle = Console.ReadLine().Trim();
+            while (userTitle == null)
+            {
+                Console.WriteLine("Please make sure to type something in.");
+                userTitle = Console.ReadLine().Trim();
+            }
             Console.WriteLine("Please give the Authors name:");
-            string userAuthor = Console.ReadLine();
-
+            string userAuthor = Console.ReadLine().Trim();
+            while (userAuthor == null)
+            {
+                Console.WriteLine("Please make sure to type something in.");
+                userAuthor = Console.ReadLine().Trim();
+            }
             Console.WriteLine("Please give a book Genre from the following types: Fantasy, Horror," +
-                " Mystery, HistoricalFiction, RealisticFiction, Romance, SciFi, NonFiction, ChildrensBooks");
-            string userGenre = Console.ReadLine();
+            " Mystery, HistoricalFiction, RealisticFiction, Romance, SciFi, NonFiction, ChildrensBooks");
+            string userGenre = Console.ReadLine().ToLower().Trim();
+            bool notValidInput = true;
+            do
+            {
+                notValidInput = true;
+                while (userGenre == null)
+                {
+                    Console.WriteLine("Please write one of the choices above");
+                    userGenre = Console.ReadLine().ToLower().Trim();
+                }
+                while (userGenre != null && userGenre != "fantasy" || userGenre != "horror" || userGenre != "mystery" ||
+                    userGenre != "historicalfiction" ||
+                    userGenre != "realisticfiction" || userGenre != "romance" || userGenre != "scifi"
+                    || userGenre != "nonfiction" || userGenre != "childrensbooks")
+                {
+                    Console.WriteLine("It has to be one of the following options.");
+                    userGenre = Console.ReadLine().ToLower().Trim();
+                    notValidInput = false;
+                }
+            }
+            while (notValidInput == true);
 
             books.Add(new Book(userTitle, userAuthor, Enum.Parse<Genre>(userGenre)));
 
             return books;
+
         }
-        //write method to add new book to file
         public static void WriteToFile()
         {
             string fileLocation = @"c:\code\books.txt";
@@ -87,8 +115,8 @@ namespace Library
                 builder.Append("\n");
             }
             File.WriteAllText(fileLocation, builder.ToString());
-            
+
         }
-        
+
     }
 }
