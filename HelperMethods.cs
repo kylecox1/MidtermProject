@@ -77,8 +77,7 @@ namespace Library
                     else if (userSearchSelection == "4")
                     {
                         validSelection = true;
-                        Console.WriteLine("Awaiting working donate method from team.");
-                        // FileHelper.DonateABook(books);
+                        FileHelper.DonateABook(books);
                     }
                     else if (userSearchSelection == "")
                     {
