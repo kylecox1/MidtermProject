@@ -31,12 +31,12 @@ namespace Library
                 return false;
             }
         }
-        public static string OverDue(Book book, double fine)
+        public static string OverDue(Book book, decimal fine)
         {
             DateTime today = DateTime.Now;
             int numberOfDays = (today - book.DueDate).Days;
-            double amount = numberOfDays * fine;
-            return amount.ToString();
+            decimal amount = numberOfDays * fine;
+            return amount.ToString("0.00");
         }
         public static DateTime DueDate()
         {

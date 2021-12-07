@@ -77,7 +77,6 @@ namespace Library
                     else if (userSearchSelection == "4")
                     {
                         validSelection = true;
-                        //Console.WriteLine("Awaiting working DonateABookMethod");
                         FileHelper.DonateABook(books);
                     }
                     else if (userSearchSelection == "")
@@ -348,7 +347,7 @@ namespace Library
                                     {
                                         if (bookToReturn.DueDate < DateTime.Now)
                                         {
-                                            Console.WriteLine("Tsk tsk, that was overdue! Thanks for bringing it back though!");
+                                            Console.WriteLine($"Tsk tsk, that was overdue! You owe us ${ IsDue.OverDue(bookToReturn, 0.5m) }");
                                             bookToReturn.DueDate = default(DateTime);
                                             bookToReturn.BookStatus = false;
                                             Console.Write("Return another book? (y/n): ");
