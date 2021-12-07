@@ -76,7 +76,7 @@ namespace Library
 
             Console.WriteLine("Please give a book Genre from the following types: Fantasy, Horror," +
             " Mystery, HistoricalFiction, RealisticFiction, Romance, SciFi, NonFiction, ChildrensBooks");
-            string userGenre;
+            string userGenre = Console.ReadLine().ToLower().Trim();
             bool notValidInput = true;
             do
             {
