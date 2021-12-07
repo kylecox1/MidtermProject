@@ -73,6 +73,7 @@ namespace Library
                 Console.WriteLine("Please make sure to type something in.");
                 userAuthor = Console.ReadLine().Trim();
             }
+
             Console.WriteLine("Please give a book Genre from the following types: Fantasy, Horror," +
             " Mystery, HistoricalFiction, RealisticFiction, Romance, SciFi, NonFiction, ChildrensBooks");
             string userGenre = Console.ReadLine().ToLower().Trim();
@@ -84,17 +85,17 @@ namespace Library
                     Console.WriteLine("Please write one of the choices above");
                     userGenre = Console.ReadLine().ToLower().Trim();
                 }
-                else if (userGenre != null && userGenre != "fantasy" || userGenre != "horror" || userGenre != "mystery" ||
-                    userGenre != "historicalfiction" ||
-                    userGenre != "realisticfiction" || userGenre != "romance" || userGenre != "scifi"
-                    || userGenre != "nonfiction" || userGenre != "childrensbooks")
+                else if (userGenre == "fantasy" || userGenre == "horror" || userGenre == "mystery" ||
+                    userGenre == "historicalfiction" ||
+                    userGenre == "realisticfiction" || userGenre == "romance" || userGenre == "scifi"
+                    || userGenre == "nonfiction" || userGenre == "childrensbooks")
                 {
-                    Console.WriteLine("It has to be one of the following options.");
-                    userGenre = Console.ReadLine().ToLower().Trim();
+                    notValidInput = false;
                 }
                 else
                 {
-                    notValidInput = false;
+                    Console.WriteLine("It needs to be one of the following options.");
+                    userGenre = Console.ReadLine().ToLower().Trim();
                 }
             }
             while (notValidInput == true);
