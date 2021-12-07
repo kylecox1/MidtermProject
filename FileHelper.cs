@@ -24,7 +24,7 @@ namespace Library
             books.Add(new Book("Cockoo Song", "Frances Hardinge", Genre.Horror));
             return books;
         }
-      
+
         public static List<Book> GetFileBookList()
         {
             StreamReader reader = new StreamReader(@"c:\code\books.txt");
@@ -76,7 +76,7 @@ namespace Library
 
             Console.WriteLine("Please give a book Genre from the following types: Fantasy, Horror," +
             " Mystery, HistoricalFiction, RealisticFiction, Romance, SciFi, NonFiction, ChildrensBooks");
-            string userGenre = Console.ReadLine().ToLower().Trim();
+            string userGenre;
             bool notValidInput = true;
             do
             {
@@ -94,7 +94,7 @@ namespace Library
                 }
                 else
                 {
-                    Console.WriteLine("It needs to be one of the following options.");
+                    Console.WriteLine("Sorry but that wasn't a valid genre.");
                     userGenre = Console.ReadLine().ToLower().Trim();
                 }
             }
