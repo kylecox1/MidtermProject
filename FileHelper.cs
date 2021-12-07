@@ -24,7 +24,7 @@ namespace Library
             books.Add(new Book("Cockoo Song", "Frances Hardinge", Genre.Horror));
             return books;
         }
-      
+
         public static List<Book> GetFileBookList()
         {
             StreamReader reader = new StreamReader(@"c:\code\books.txt");
