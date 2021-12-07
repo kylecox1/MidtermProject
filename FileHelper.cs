@@ -73,13 +73,13 @@ namespace Library
                 Console.WriteLine("Please make sure to type something in.");
                 userAuthor = Console.ReadLine().Trim();
             }
+
             Console.WriteLine("Please give a book Genre from the following types: Fantasy, Horror," +
             " Mystery, HistoricalFiction, RealisticFiction, Romance, SciFi, NonFiction, ChildrensBooks");
             string userGenre;
             bool notValidInput = true;
             do
             {
-                userGenre = Console.ReadLine().ToLower().Trim();
                 if (userGenre == null)
                 {
                     Console.WriteLine("Please write one of the choices above");
@@ -95,6 +95,7 @@ namespace Library
                 else
                 {
                     Console.WriteLine("Sorry but that wasn't a valid genre.");
+                    userGenre = Console.ReadLine().ToLower().Trim();
                 }
             }
             while (notValidInput == true);
