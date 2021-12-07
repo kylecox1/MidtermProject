@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-
 
 namespace Library
 {
@@ -8,8 +6,8 @@ namespace Library
     {
         static void Main(string[] args)
         {
-            FileHelper.WriteToFile();
+            HelperMethods.CheckAndInitiateFile();
             HelperMethods.UserInterface();
-        }      
+        }
     }
 }
