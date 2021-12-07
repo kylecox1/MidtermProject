@@ -12,18 +12,18 @@ namespace Library
             List<Book> books = FileHelper.GetFileBookList();
 
             Console.WriteLine("Welcome to the world's smallest library!");
-            Console.WriteLine("");
-            Console.WriteLine("These are our current selections:");
-            Console.WriteLine("");
-
-            foreach (var book in books)
-            {
-                Console.WriteLine($"  --- \"{ book.Title }\" by { book.Author } ---");
-            }
-            Console.WriteLine("");
             bool continueBrowsing = true;
             while (continueBrowsing == true)
             {
+                Console.WriteLine("");
+                Console.WriteLine("These are our current selections:");
+                Console.WriteLine("");
+
+                foreach (var book in books)
+                {
+                    Console.WriteLine($"  --- \"{ book.Title }\" by { book.Author } ---");
+                }
+                Console.WriteLine("");
                 Console.WriteLine("To continue, please enter:");
                 Console.WriteLine("1. to search by author.");
                 Console.WriteLine("2. to search by title.");
@@ -33,7 +33,6 @@ namespace Library
                 bool validSelection = false;
                 while (validSelection == false)
                 {
-
                     string userSearchSelection = Console.ReadLine();
                     if (userSearchSelection == "1")
                     {
@@ -84,14 +83,22 @@ namespace Library
                                         }
                                         else
                                         {
-                                            Book bookToCheckOut = authorSearchResults[userAuthorSelection - 1];
+                                            Book searchedBook = authorSearchResults[userAuthorSelection - 1];
                                             Console.WriteLine($"Book number { userAuthorSelection } is " +
-                                                $"\"{ bookToCheckOut.Title }\" by { bookToCheckOut.Author }");
+                                                $"\"{ searchedBook.Title }\" by { searchedBook.Author }");
+                                            Book bookToCheckOut = GetBookFromMainList(books, searchedBook);
+
                                             if (IsDue.CheckOutBook(bookToCheckOut))
                                             {
                                                 bookToCheckOut.BookStatus = true;
                                                 bookToCheckOut.DueDate = IsDue.DueDate();
-                                                Console.WriteLine($"Looks like it was available! Please return it by { bookToCheckOut.DueDate }");
+                                                Console.WriteLine($"Looks like it was available! You have checked out " +
+                                                    $"\"{ bookToCheckOut.Title }.\" Please return it by { bookToCheckOut.DueDate }.");
+                                            }
+                                            else if (!IsDue.CheckOutBook(bookToCheckOut))
+                                            {
+                                                Console.WriteLine($"Sorry, \"{ bookToCheckOut.Title }\" is currently checked out. " +
+                                                    $"It is due on { bookToCheckOut.DueDate }, please try back after then!");
                                             }
                                         }
                                         continueAuthorSearch = false;
@@ -108,19 +115,88 @@ namespace Library
                     else if (userSearchSelection == "2")
                     {
                         validSelection = true;
-                        TitleSearch(books);
-
+                        bool continueTitleSearch = true;
+                        int userTitleSelection;
+                        while (continueTitleSearch == true)
+                        {
+                            List<Book> titleSearchResults = TitleSearch(books);
+                            if (titleSearchResults.Count == 0)
+                            {
+                                Console.WriteLine("Sorry, we did not find any books with that title.");
+                                Console.Write("Search by author again? (y/n): ");
+                                continueTitleSearch = GetYesOrNo();
+                                continue;
+                            }
+                            Console.WriteLine("For that search, we have the following book(s):");
+                            Console.WriteLine("");
+                            int count = 1;
+                            foreach (var book in titleSearchResults)
+                            {
+                                Console.WriteLine($"{ count }. \"{ book.Title }\" by { book.Author }");
+                                count++;
+                            }
+                            Console.WriteLine("");
+                            bool checkOutFromTitleSearch = false;
+                            Console.Write("Would you like to check out any of these? (y/n): ");
+                            checkOutFromTitleSearch = GetYesOrNo();
+                            if (checkOutFromTitleSearch == false)
+                            {
+                                Console.Write("Search by title again? (y/n): ");
+                                continueTitleSearch = GetYesOrNo();
+                            }
+                            else if (checkOutFromTitleSearch == true)
+                            {
+                                bool validInput = false;
+                                while (validInput == false)
+                                {
+                                    Console.Write("Please type the number of the book you would like: ");
+                                    string userInput = Console.ReadLine();
+                                    validInput = int.TryParse(userInput, out userTitleSelection);
+                                    if (validInput)
+                                    {
+                                        if (userTitleSelection > titleSearchResults.Count || userTitleSelection < 1)
+                                        {
+                                            Console.WriteLine("Sorry, that number was out of range.");
+                                            validInput = false;
+                                        }
+                                        else
+                                        {
+                                            Book searchedBook = titleSearchResults[userTitleSelection - 1];
+                                            Console.WriteLine($"Book number { userTitleSelection } is " +
+                                                $"\"{ searchedBook.Title }\" by { searchedBook.Author }.");
+                                            Book bookToCheckOut = GetBookFromMainList(books, searchedBook);
+                                            if (IsDue.CheckOutBook(bookToCheckOut))
+                                            {
+                                                bookToCheckOut.BookStatus = true;
+                                                bookToCheckOut.DueDate = IsDue.DueDate();
+                                                Console.WriteLine($"Looks like it was available! You have checked out " +
+                                                    $"\"{ bookToCheckOut.Title }.\" Please return it by { bookToCheckOut.DueDate }.");
+                                            }
+                                            else if (!IsDue.CheckOutBook(bookToCheckOut))
+                                            {
+                                                Console.WriteLine($"Sorry, \"{ bookToCheckOut.Title }\" is currently checked out. " +
+                                                    $"It is due on { bookToCheckOut.DueDate }, please try back after then!");
+                                            }
+                                        }
+                                        continueTitleSearch = false;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Please enter a whole number only.");
+                                    }
+                                }
+                            }
+                        }
                     }
                     else if (userSearchSelection == "3")
                     {
                         validSelection = true;
-                        Console.WriteLine("Logic to accept returns.");
-
+                        ReturnBook(books);
                     }
                     else if (userSearchSelection == "4")
                     {
                         validSelection = true;
-                        Console.WriteLine("Logic to accept donations.");
+                        FileHelper.DonateABook(books);
                     }
                     else if (userSearchSelection.ToLower() == "q")
                     {
@@ -136,8 +212,10 @@ namespace Library
                 {
                     Console.Write("Continue browsing? (y/n): ");
                     continueBrowsing = GetYesOrNo();
+                    Console.Clear();
                 }
             }
+            FileHelper.OverWriteFile(books);
             Console.WriteLine("Thanks for visiting us today! Press any key to exit.");
             Console.ReadKey();
         }
@@ -150,11 +228,107 @@ namespace Library
             return bookQuery;
         }
 
-        public static void TitleSearch(List<Book> books)
+        public static List<Book> TitleSearch(List<Book> books)
         {
             Console.Write("Please enter the title search term: ");
             string userTitleSearch = Console.ReadLine();
             List<Book> bookQuery = books.Where(p => p.Title.ToLower().Contains(userTitleSearch.ToLower())).ToList();
+            return bookQuery;
+        }
+
+        public static Book GetBookFromMainList(List<Book> books, Book searchedBook)
+        {
+            Book book = books.First(p => p.Title == searchedBook.Title);
+            return book;
+        }
+
+        public static void ReturnBook(List<Book> books)
+        {
+            bool continueReturnSearch = true;
+            int userReturnSelection;
+            while (continueReturnSearch == true)
+            {
+                Console.WriteLine("Please enter part of the title of your book: ");
+                string titleSearchTerm = Console.ReadLine();
+                List<Book> bookQuery = books.Where(p => p.Title.ToLower().Contains(titleSearchTerm.ToLower())).ToList();
+                if (bookQuery.Count < 1)
+                {
+                    Console.WriteLine("Hmm, not sure that one belongs to us. Try again? (y/n): ");
+                    continueReturnSearch = GetYesOrNo();
+                }
+                else
+                {
+                    Console.WriteLine("For that term, our books include the following:");
+                    Console.WriteLine("");
+                    int count = 1;
+                    foreach (var book in bookQuery)
+                    {
+                        Console.WriteLine($"{ count }. \"{ book.Title }\" by { book.Author }");
+                        count++;
+                    }
+                    Console.WriteLine("");
+                    bool bookOnList = false;
+                    Console.Write("Is your book on this list? (y/n): ");
+                    bookOnList = GetYesOrNo();
+                    if (!bookOnList)
+                    {
+                        Console.WriteLine("Sorry, try search again? (y/n): ");
+                        continueReturnSearch = GetYesOrNo();
+                    }
+                    else if (bookOnList)
+                    {
+                        bool validInput = false;
+                        while (validInput == false)
+                        {
+                            Console.WriteLine("Please type the number of your book: ");
+                            string userInput = Console.ReadLine();
+                            validInput = int.TryParse(userInput, out userReturnSelection);
+                            if (validInput)
+                            {
+                                if (userReturnSelection > bookQuery.Count || userReturnSelection < 1)
+                                {
+                                    Console.WriteLine("Sorry, that number was out of range.");
+                                    validInput = false;
+                                }
+                                else
+                                {
+                                    Book searchedBook = bookQuery[userReturnSelection - 1];
+                                    Console.WriteLine($"Book number { userReturnSelection } is " +
+                                        $"\"{ searchedBook.Title }\" by { searchedBook.Author }.");
+                                    Book bookToReturn = GetBookFromMainList(books, searchedBook);
+                                    if (IsDue.CheckOutBook(bookToReturn))
+                                    {
+                                        Console.WriteLine("Looks like we already have our copy of this book! " +
+                                            "Maybe it belongs to another library?");
+                                        Console.WriteLine("Try search again? (y/n): ");
+                                        continueReturnSearch = GetYesOrNo();
+                                    }
+                                    else if (!IsDue.CheckOutBook(bookToReturn))
+                                    {
+                                        if (bookToReturn.DueDate < DateTime.Now)
+                                        {
+                                            Console.WriteLine("Tsk tsk, that was overdue! Thanks for bringing it back though!");
+                                            bookToReturn.DueDate = default(DateTime);
+                                            bookToReturn.BookStatus = false;
+                                            Console.WriteLine("Return another book? (y/n): ");
+                                            continueReturnSearch = GetYesOrNo();
+                                        }
+                                        else if (bookToReturn.DueDate > DateTime.Now)
+                                        {
+                                            Console.WriteLine("Thanks for returning your book on time!");
+                                            bookToReturn.DueDate = default(DateTime);
+                                            bookToReturn.BookStatus = false;
+                                            Console.WriteLine("Return another book? (y/n): ");
+                                            continueReturnSearch = GetYesOrNo();
+                                        }
+                                    }
+                                }
+                            }
+                            bookOnList = false;
+                        }
+                    }
+                }
+            }
         }
 
         public static bool GetYesOrNo()
