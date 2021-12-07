@@ -98,6 +98,42 @@ namespace Library
                 }
             }
             while (notValidInput == true);
+            if (userGenre == "fantasy")
+            {
+                userGenre = "Fantasy";
+            }
+            if (userGenre == "horror")
+            {
+                userGenre = "Horror";
+            }
+            if (userGenre == "mystery")
+            {
+                userGenre = "Mystery";
+            }
+            if (userGenre == "historicalfiction")
+            {
+                userGenre = "HistoricalFiction";
+            }
+            if (userGenre == "realisticfiction")
+            {
+                userGenre = "RealisticFiction";
+            }
+            if (userGenre == "romance")
+            {
+                userGenre = "Romance";
+            }
+            if (userGenre == "nonfiction")
+            {
+                userGenre = "NonFiction";
+            }
+            if (userGenre == "childrensbooks")
+            {
+                userGenre = "ChildrensBooks";
+            }
+            if (userGenre == "scifi")
+            {
+                userGenre = "SciFi";
+            }
             books.Add(new Book(userTitle, userAuthor, Enum.Parse<Genre>(userGenre)));
             return books;
         }
