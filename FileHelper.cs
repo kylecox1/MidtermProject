@@ -22,6 +22,9 @@ namespace Library
             books.Add(new Book("Foundation", "Isaac Asimov", Genre.SciFi));
             books.Add(new Book("Hyperion", "Dan Simmons", Genre.SciFi));
             books.Add(new Book("Cuckoo Song", "Frances Hardinge", Genre.Horror));
+            books.Add(new Book("Overdue Checked Out Book", "A. Author", Genre.Horror, true, DateTime.Now.AddDays(-1)));
+            books.Add(new Book("On-Time Checked Out Book", "B. Author", Genre.Romance, true, DateTime.Now.AddDays(1)));
+            books.Add(new Book("Really Late Book", "C. Author", Genre.Fantasy, true, DateTime.Now.AddDays(-1000)));
             return books;
         }
 

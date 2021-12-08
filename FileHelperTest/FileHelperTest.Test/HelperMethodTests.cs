@@ -8,17 +8,17 @@ namespace FileHelperTest.Test
     public class HelperMethodTests
     {
         [Fact]
-        public void ListIsGiven_FormattedBuilderObjectIsReturned()
+        public void ListIsGiven_SelectedObjectFromListIsReturned()
         {
             // Arrange
-            HelperMethods subject = new HelperMethods();
+            
             List<Book> books = FileHelper.BookList();
 
             // Act
-            //FormatListOfBooks;
+            Book returnObject = HelperMethods.GetBookFromMainList(books, books[0]);
 
             // Assert
-
+            Assert.Equal(returnObject, books[0]);
         }
     }
 }
