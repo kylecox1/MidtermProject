@@ -50,10 +50,10 @@ namespace Library
                 Console.WriteLine("");
                 Console.WriteLine(FormatListOfBooks(books));
                 Console.WriteLine("To continue, please enter:");
-                Console.WriteLine("1. to search by author.");
-                Console.WriteLine("2. to search by title.");
-                Console.WriteLine("3. to return books.");
-                Console.WriteLine("4. to donate books.");
+                Console.WriteLine("1. To search by author.");
+                Console.WriteLine("2. To search by title.");
+                Console.WriteLine("3. To return books.");
+                Console.WriteLine("4. To donate books.");
                 Console.WriteLine("Q to exit.");
                 bool validSelection = false;
                 while (validSelection == false)
@@ -77,7 +77,6 @@ namespace Library
                     else if (userSearchSelection == "4")
                     {
                         validSelection = true;
-                        //Console.WriteLine("Awaiting working DonateABookMethod");
                         FileHelper.DonateABook(books);
                     }
                     else if (userSearchSelection == "")
@@ -348,7 +347,10 @@ namespace Library
                                     {
                                         if (bookToReturn.DueDate < DateTime.Now)
                                         {
-                                            Console.WriteLine("Tsk tsk, that was overdue! Thanks for bringing it back though!");
+                                            Console.WriteLine($"Tsk tsk, that was overdue by " +
+                                                $"{ (DateTime.Now - bookToReturn.DueDate).Days } days! " +
+                                                $"You owe us ${ IsDue.OverDue(bookToReturn, 0.5m) }. " +
+                                                $"This book has been returned.");
                                             bookToReturn.DueDate = default(DateTime);
                                             bookToReturn.BookStatus = false;
                                             Console.Write("Return another book? (y/n): ");
@@ -359,7 +361,7 @@ namespace Library
                                             Console.WriteLine("Thanks for returning your book on time!");
                                             bookToReturn.DueDate = default(DateTime);
                                             bookToReturn.BookStatus = false;
-                                            Console.WriteLine("Return another book? (y/n): ");
+                                            Console.Write("Return another book? (y/n): ");
                                             continueReturnSearch = GetYesOrNo();
                                         }
                                     }

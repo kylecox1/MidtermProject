@@ -17,11 +17,14 @@ namespace Library
             books.Add(new Book("Sherlock Holmes", "Arthur Conan Doyle", Genre.Mystery));
             books.Add(new Book("Buried Onions", "Gary Soto", Genre.RealisticFiction));
             books.Add(new Book("Fabio", "Ya Dream Man", Genre.Romance));
-            books.Add(new Book("Coding for Dummies", "NikHil Abraham", Genre.NonFiction));
+            books.Add(new Book("Coding for Dummies", "Nikhil Abraham", Genre.NonFiction));
             books.Add(new Book("Green Eggs and Ham", "Dr Seuss", Genre.ChildrensBooks));
             books.Add(new Book("Foundation", "Isaac Asimov", Genre.SciFi));
             books.Add(new Book("Hyperion", "Dan Simmons", Genre.SciFi));
-            books.Add(new Book("Cockoo Song", "Frances Hardinge", Genre.Horror));
+            books.Add(new Book("Cuckoo Song", "Frances Hardinge", Genre.Horror));
+            books.Add(new Book("Overdue Checked Out Book", "A. Author", Genre.Horror, true, DateTime.Now.AddDays(-1)));
+            books.Add(new Book("On-Time Checked Out Book", "B. Author", Genre.Romance, true, DateTime.Now.AddDays(1)));
+            books.Add(new Book("Really Late Book", "C. Author", Genre.Fantasy, true, DateTime.Now.AddDays(-1000)));
             return books;
         }
 
@@ -40,7 +43,7 @@ namespace Library
             reader.Close();
             return books;
         }
-      
+
         public static void OverWriteFile(List<Book> books)
         {
             string fileLocation = @"c:\code\books.txt";
@@ -56,89 +59,122 @@ namespace Library
             }
             File.WriteAllText(fileLocation, builder.ToString());
         }
-      
+
         public static List<Book> DonateABook(List<Book> books)
         {
-            Console.WriteLine("Please give a title:");
-            string userTitle = Console.ReadLine().Trim();
-            while (userTitle == null)
+            bool continueBookDonation = true;
+            while (continueBookDonation == true)
             {
-                Console.WriteLine("Please make sure to type something in.");
-                userTitle = Console.ReadLine().Trim();
-            }
-            Console.WriteLine("Please give the Authors name:");
-            string userAuthor = Console.ReadLine().Trim();
-            while (userAuthor == null)
-            {
-                Console.WriteLine("Please make sure to type something in.");
-                userAuthor = Console.ReadLine().Trim();
-            }
+                string userTitle = "";
+                bool validTitle = false;
+                while (validTitle == false)
+                {
+                    Console.Write("Please enter your book's title: ");
+                    userTitle = Console.ReadLine();
+                    if (userTitle == null || userTitle == "")
+                    {
+                        Console.WriteLine("Please make sure to type something in.");
+                    }
+                    else
+                    {
+                        userTitle.Trim();
+                        validTitle = true;
+                    }
+                }
 
-            Console.WriteLine("Please give a book Genre from the following types: Fantasy, Horror," +
-            " Mystery, HistoricalFiction, RealisticFiction, Romance, SciFi, NonFiction, ChildrensBooks");
-            string userGenre = Console.ReadLine().ToLower().Trim();
-            bool notValidInput = true;
-            do
-            {
-                if (userGenre == null)
+                string userAuthor = "";
+                bool validAuthor = false;
+                while (validAuthor == false)
                 {
-                    Console.WriteLine("Please write one of the choices above");
-                    userGenre = Console.ReadLine().ToLower().Trim();
+                    Console.Write("Please enter your book's author: ");
+                    userAuthor = Console.ReadLine();
+                    if (userAuthor == null || userAuthor == "")
+                    {
+                        Console.WriteLine("Please make sure to type something in.");
+                    }
+                    else
+                    {
+                        userAuthor.Trim();
+                        validAuthor = true;
+                    }
                 }
-                else if (userGenre == "fantasy" || userGenre == "horror" || userGenre == "mystery" ||
-                    userGenre == "historicalfiction" ||
-                    userGenre == "realisticfiction" || userGenre == "romance" || userGenre == "scifi"
-                    || userGenre == "nonfiction" || userGenre == "childrensbooks")
+
+                string userGenre = "";
+                bool validInput = false;
+                do
                 {
-                    notValidInput = false;
+                    Console.Write("Please give a book Genre from the following types: Fantasy, Horror," +
+                    " Mystery, HistoricalFiction, RealisticFiction, Romance, SciFi, NonFiction, ChildrensBooks: ");
+                    string userInput = Console.ReadLine();
+                    if (userInput == null || userInput == "")
+                    {
+                        Console.WriteLine("Please enter something.");
+                    }
+                    else if (userInput.Trim().ToLower() == "fantasy" ||
+                        userInput.Trim().ToLower() == "horror" ||
+                        userInput.Trim().ToLower() == "mystery" ||
+                        userInput.Trim().ToLower() == "historicalfiction" ||
+                        userInput.Trim().ToLower() == "realisticfiction" ||
+                        userInput.Trim().ToLower() == "romance" ||
+                        userInput.Trim().ToLower() == "scifi" ||
+                        userInput.Trim().ToLower() == "nonfiction" ||
+                        userInput.Trim().ToLower() == "childrensbooks")
+                    {
+                        userGenre = userInput.ToLower().Trim();
+                        validInput = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry but that wasn't a valid genre.");
+                    }
                 }
-                else
+                while (validInput == false);
+                if (userGenre == "fantasy")
                 {
-                    Console.WriteLine("Sorry but that wasn't a valid genre.");
-                    userGenre = Console.ReadLine().ToLower().Trim();
+                    userGenre = "Fantasy";
                 }
+                if (userGenre == "horror")
+                {
+                    userGenre = "Horror";
+                }
+                if (userGenre == "mystery")
+                {
+                    userGenre = "Mystery";
+                }
+                if (userGenre == "historicalfiction")
+                {
+                    userGenre = "HistoricalFiction";
+                }
+                if (userGenre == "realisticfiction")
+                {
+                    userGenre = "RealisticFiction";
+                }
+                if (userGenre == "romance")
+                {
+                    userGenre = "Romance";
+                }
+                if (userGenre == "nonfiction")
+                {
+                    userGenre = "NonFiction";
+                }
+                if (userGenre == "childrensbooks")
+                {
+                    userGenre = "ChildrensBooks";
+                }
+                if (userGenre == "scifi")
+                {
+                    userGenre = "SciFi";
+                }
+                Book newBook = new Book(userTitle, userAuthor, Enum.Parse<Genre>(userGenre));
+                books.Add(newBook);
+                Console.WriteLine($"Thanks for donating your copy of \"{newBook.Title}\"!");
+
+                Console.Write("Donate another book? (y/n): ");
+                continueBookDonation = HelperMethods.GetYesOrNo();
             }
-            while (notValidInput == true);
-            if (userGenre == "fantasy")
-            {
-                userGenre = "Fantasy";
-            }
-            if (userGenre == "horror")
-            {
-                userGenre = "Horror";
-            }
-            if (userGenre == "mystery")
-            {
-                userGenre = "Mystery";
-            }
-            if (userGenre == "historicalfiction")
-            {
-                userGenre = "HistoricalFiction";
-            }
-            if (userGenre == "realisticfiction")
-            {
-                userGenre = "RealisticFiction";
-            }
-            if (userGenre == "romance")
-            {
-                userGenre = "Romance";
-            }
-            if (userGenre == "nonfiction")
-            {
-                userGenre = "NonFiction";
-            }
-            if (userGenre == "childrensbooks")
-            {
-                userGenre = "ChildrensBooks";
-            }
-            if (userGenre == "scifi")
-            {
-                userGenre = "SciFi";
-            }
-            books.Add(new Book(userTitle, userAuthor, Enum.Parse<Genre>(userGenre)));
             return books;
         }
-      
+
         public static void WriteToFile()
         {
             string fileLocation = @"c:\code\books.txt";
