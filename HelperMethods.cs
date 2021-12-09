@@ -11,7 +11,7 @@ namespace Library
 
         public static void CheckAndInitiateFile()
         {
-            string curFile = @"c:\code\books.txt"; 
+            string curFile = @"c:\code\books.txt";
             Directory.CreateDirectory(@"c:\code");
 
             if (File.Exists(curFile))
@@ -42,19 +42,19 @@ namespace Library
             List<Book> books = FileHelper.GetFileBookList();
 
             Console.WriteLine("Welcome to the world's smallest library!");
+            Console.WriteLine("");
             bool continueBrowsing = true;
             while (continueBrowsing == true)
             {
-                Console.WriteLine("");
                 Console.WriteLine("These are our current selections:");
                 Console.WriteLine("");
                 Console.WriteLine(FormatListOfBooks(books));
                 Console.WriteLine("To continue, please enter:");
-                Console.WriteLine("1. To search by author.");
-                Console.WriteLine("2. To search by title.");
-                Console.WriteLine("3. To return books.");
-                Console.WriteLine("4. To donate books.");
-                Console.WriteLine("Q to exit.");
+                Console.WriteLine("   1. To search by author.");
+                Console.WriteLine("   2. To search by title.");
+                Console.WriteLine("   3. To return books.");
+                Console.WriteLine("   4. To donate books.");
+                Console.WriteLine("   Q to exit.");
                 bool validSelection = false;
                 while (validSelection == false)
                 {
