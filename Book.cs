@@ -30,5 +30,18 @@ namespace Library
             BookStatus = bookStatus;
             DueDate = dueDate;
         }
+
+        public Book(string title, string author, bool bookStatus)
+        {
+            Title = title;
+            Author = author;
+            BookStatus = bookStatus;
+        }
+        public Book(string title, string author, DateTime dueDate)
+        {
+            Title = title;
+            Author = author;
+            DueDate = dueDate;
+        }
     }
 }

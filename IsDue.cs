@@ -38,9 +38,11 @@ namespace Library
             decimal amount = numberOfDays * fine;
             return amount.ToString("0.00");
         }
+
+
         public static DateTime DueDate()
         {
-            DateTime checkOutDay = DateTime.Now;
+            DateTime checkOutDay = DateTime.Now.Date;
             TimeSpan twoWeeks = new TimeSpan(14, 0, 0, 0);
             DateTime dueDate = checkOutDay + twoWeeks;
             return dueDate;
