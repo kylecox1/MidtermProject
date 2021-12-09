@@ -174,10 +174,15 @@ namespace Library
                                         $"\"{ bookToCheckOut.Title }.\" Please return it by " +
                                         $"{ bookToCheckOut.DueDate.ToShortDateString() }.");
                                 }
-                                else if (!IsDue.CheckOutBook(bookToCheckOut))
+                                else if (!IsDue.CheckOutBook(bookToCheckOut) && bookToCheckOut.DueDate > DateTime.Now)
                                 {
-                                    Console.WriteLine($"Sorry, \"{ bookToCheckOut.Title }\" is currently checked out. " +
-                                        $"It is due on { bookToCheckOut.DueDate.ToShortDateString() }, please try back after then!");
+                                    Console.WriteLine($"Sorry, \"{ bookToCheckOut.Title }\" is currently checked out.");
+                                    Console.WriteLine($"It is due on { bookToCheckOut.DueDate.ToShortDateString() }, please try back after then!");
+                                }
+                                else if (!IsDue.CheckOutBook(bookToCheckOut) && bookToCheckOut.DueDate < DateTime.Now)
+                                {
+                                    Console.WriteLine($"Sorry, \"{ bookToCheckOut.Title }\" is currently checked out. It's overdue.");
+                                    Console.WriteLine($"It was due on { bookToCheckOut.DueDate.ToShortDateString() }. Hopefully it will be returned soon!");
                                 }
                             }
                             continueAuthorSearch = false;
@@ -259,10 +264,15 @@ namespace Library
                                         $"\"{ bookToCheckOut.Title }.\" Please return it by " +
                                         $"{ bookToCheckOut.DueDate.ToShortDateString() }.");
                                 }
-                                else if (!IsDue.CheckOutBook(bookToCheckOut))
+                                else if (!IsDue.CheckOutBook(bookToCheckOut) && bookToCheckOut.DueDate > DateTime.Now)
                                 {
-                                    Console.WriteLine($"Sorry, \"{ bookToCheckOut.Title }\" is currently checked out. " +
-                                        $"It is due on { bookToCheckOut.DueDate.ToShortDateString() }, please try back after then!");
+                                    Console.WriteLine($"Sorry, \"{ bookToCheckOut.Title }\" is currently checked out.");
+                                    Console.WriteLine($"It is due on { bookToCheckOut.DueDate.ToShortDateString() }, please try back after then!");
+                                }
+                                else if (!IsDue.CheckOutBook(bookToCheckOut) && bookToCheckOut.DueDate < DateTime.Now)
+                                {
+                                    Console.WriteLine($"Sorry, \"{ bookToCheckOut.Title }\" is currently checked out. It's overdue.");
+                                    Console.WriteLine($"It was due on { bookToCheckOut.DueDate.ToShortDateString() }. Hopefully it will be returned soon!");
                                 }
                             }
                             continueTitleSearch = false;
