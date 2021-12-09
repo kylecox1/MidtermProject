@@ -11,7 +11,7 @@ namespace Library
 
         public static void CheckAndInitiateFile()
         {
-            string curFile = @"c:\code\books.txt";
+            string curFile = @"c:\code\books.txt"; 
             Directory.CreateDirectory(@"c:\code");
 
             if (File.Exists(curFile))
